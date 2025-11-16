@@ -1,0 +1,68 @@
+<html lang="en">
+<head>
+    <title>Name Form</title>
+    <script>
+        function testName() {
+
+            let uError = document.getElementById('uError');
+            let nameInput = document.getElementById("name");
+            let name = nameInput.value;
+
+            let words = name.split(" ");
+
+            if (name === "") {
+                uError.innerHTML = "Name cannot be empty!";
+                uError.style.color = "red";
+                return false;
+            }
+
+            if (words.length < 2) {
+                uError.innerHTML = "Name must contain at least two words!";
+                uError.style.color = "red";
+                return false;
+            }
+
+            let firstChar = name.charAt(0);
+
+            let startsWithLetter =
+                (firstChar >= 'A' && firstChar <= 'Z') ||
+                (firstChar >= 'a' && firstChar <= 'z');
+
+            if (!startsWithLetter) {
+                uError.innerHTML = "Name must start with a letter!";
+                uError.style.color = "red";
+                return false;
+            }
+
+            for (let w of words) {
+
+                for (let ch of w) {
+                    let isLetter =
+                        (ch >= 'A' && ch <= 'Z') ||
+                        (ch >= 'a' && ch <= 'z');
+
+                    let isAllowed = isLetter || ch === '.' || ch === '-';
+
+                    if (!isAllowed) {
+                        uError.innerHTML = "Only letters, dot(.) and dash(-) are allowed!";
+                        uError.style.color = "red";
+                        return false;
+                    }
+                }
+            }
+            uError.innerHTML = "";
+            return true;
+
+        }
+    </script>
+
+
+</head>
+<body>
+        <p>Name</p>
+        <input type="text" id="name" name="name"><br><br>
+        <input type="button" name="Submit" value="Submit" onclick="testName()" >
+        <p id="uError"></p>
+    
+</body>
+</html>
